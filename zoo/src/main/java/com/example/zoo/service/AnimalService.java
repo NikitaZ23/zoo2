@@ -1,0 +1,57 @@
+package com.example.zoo.service;
+
+import com.example.zoo.domain.Animals;
+import com.example.zoo.repos.AnimalsRepo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.stereotype.Service;
+
+import java.awt.print.Pageable;
+import java.util.List;
+import java.util.Locale;
+
+@Service
+public class AnimalService {
+    @Autowired
+    private final AnimalsRepo animalsRepo;
+
+    public AnimalService(AnimalsRepo addressRepository){
+        this.animalsRepo = addressRepository;
+    }
+
+    public void createAnimals(Animals animals){
+        animalsRepo.save(animals);
+    }
+
+    public void deleteAnimal(Animals animals){
+        animalsRepo.delete(animals);
+    }
+    public void deleteAnimals(){
+        animalsRepo.deleteAll();
+    }
+
+    public List<Animals> findAll(){
+        return animalsRepo.findAll();
+    }
+
+    public List<Animals> findAllView(String view){
+        return animalsRepo.findAllView(view);
+    }
+
+    public List<Animals> findAllPred(boolean pred){
+        return animalsRepo.findAllPred(pred);
+    }
+
+    public List<Animals> findAllName(String name){
+        return animalsRepo.findAllName(name);
+    }
+
+    public Animals findById(Long userId){
+        return animalsRepo.findById(userId).orElse(null);
+    }
+
+    public List<Animals> findAllByName(String name){
+        return animalsRepo.findAllByName(name.toLowerCase(Locale.ROOT));
+    }
+
+}
